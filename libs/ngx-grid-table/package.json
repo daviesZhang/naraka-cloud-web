@@ -1,0 +1,15 @@
+{
+  "name": "ngx-grid-table",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "ag-grid-community": "^27.0.0",
+    "ag-grid-enterprise": "^27.0.0",
+    "ag-grid-angular": "^27.0.0",
+    "ng-zorro-antd": "^13.0.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
