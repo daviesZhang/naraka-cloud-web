@@ -1,0 +1,26 @@
+<nz-select [ngStyle]="{width:(props['selectWidth']||100)+'px'}" [nzAllowClear]="props['allowClear']"
+           [nzMode]="props['mode']||'default'"
+           [nzServerSearch]="serverSearch"
+           [nzShowSearch]="props['showSearch']"
+           [nzPlaceHolder]="props['placeholder']"
+           [nzMaxTagCount]="props['maxTagCount']"
+           (nzOnSearch)="onSearch($event)"
+           [nzSize]="props['size']||'default'" [formControl]="formControl"
+           [formlyAttributes]="field">
+  <ng-container *ngIf="isSync">
+    <nz-option *ngFor="let item of props['options']"
+               [nzValue]="item['value']" [nzLabel]="item['label']"></nz-option>
+  </ng-container>
+  <ng-container *ngIf="!isSync">
+
+    <ng-container *ngFor="let item of optionList">
+      <nz-option *ngIf="!isLoading" [nzValue]="item['value']" [nzLabel]="item['label']"></nz-option>
+    </ng-container>
+    <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+      <i nz-icon nzType="loading" class="loading-icon"></i>
+      Loading Data...
+    </nz-option>
+
+  </ng-container>
+</nz-select>
+

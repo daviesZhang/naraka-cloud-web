@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'naraka-cloud-web-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'admin';
+  isCollapsed = false;
 }

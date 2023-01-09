@@ -1,0 +1,21 @@
+<naraka-cloud-web-json-form #jsonForm [fields]="searchFields" class="search-panel"></naraka-cloud-web-json-form>
+
+<ng-template #topLeft>
+  <button (click)="create()" nzSize="small" nz-button nzType="primary">{{'common.create' |translate}}</button>
+</ng-template>
+<ng-template #topCenter>
+  <button  (click)="grid.refreshRowsData(jsonForm.value)" nzSize="small" nz-button nzType="primary">{{'common.search' |translate}}</button>
+</ng-template>
+<ng-template #cellButton let-node>
+  <button nzSize="small" style="margin-right: 5px" (click)="create(node.data.code)" nz-button nzType="primary">{{'common.create'|translate}}</button>
+  <button nzSize="small" style="margin-right: 5px" (click)="update(node.data)" nz-button nzType="primary">{{'common.update'|translate}}</button>
+  <button nzSize="small" style="margin-right: 5px" (click)="delete(node.data.code)" nz-button nzType="primary">{{'common.delete'|translate}}</button>
+</ng-template>
+<ngx-grid-table #grid
+                [topButton]="{center:topCenter,left:topLeft }"
+                [getData]="getData"
+                [serverSort]="false"
+
+                (gridReady)="onGridReady($event,jsonForm)"
+                [options]="gridOptions">
+</ngx-grid-table>

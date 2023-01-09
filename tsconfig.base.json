@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@core": ["apps/admin/src/app/core/index"],
+      "@core/*": ["apps/admin/src/app/core/*"],
+      "@env/*": ["apps/admin/src/environments/*"],
+      "@shared/*": ["apps/admin/src/app/shared/*"],
+      "ngx-formly-antd-x": ["libs/ngx-formly-antd-x/src/index.ts"],
+      "ngx-grid-table": ["libs/ngx-grid-table/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,20 @@
+:host{
+  width: 100%;
+  form{
+    width: 100%;
+  }
+}
+
+
+.json-form-wrapper{
+
+  .search-grid{
+    width: 100%;
+    .grid-search-panel{ //
+      display: flex;
+      padding: 5px 10px;
+      border: 1px solid #babfc7;
+      border-bottom-style: none;
+    }
+  }
+}

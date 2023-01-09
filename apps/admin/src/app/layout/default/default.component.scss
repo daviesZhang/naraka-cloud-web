@@ -1,0 +1,39 @@
+.default-layout{
+  height: 100%;
+  .logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+
+  nz-header {
+    background: #fff;
+    padding: 0;
+  }
+
+  nz-content {
+    margin: 16px;
+  }
+
+
+
+  .inner-content {
+    //padding: 24px;
+    background: #fff;
+    min-height: 360px;
+    height: 100%;
+
+    >*:last-child{
+      display: flex;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+
+}

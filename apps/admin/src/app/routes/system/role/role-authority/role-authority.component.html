@@ -1,0 +1,35 @@
+<naraka-cloud-web-json-form #jsonForm [fields]="searchFields" class="search-panel"></naraka-cloud-web-json-form>
+
+<ng-template #center>
+  <button
+    (click)="grid.refreshRowsData()"
+    nzSize="small"
+    nz-button
+    nzType="primary">{{'common.search' |translate}}</button>
+</ng-template>
+
+<ng-template #left>
+  <nz-switch (ngModelChange)="onAssignChange($event)" [nzUnCheckedChildren]="'common.notOwned'| translate" [nzCheckedChildren]="'common.owned'| translate"
+             [ngModel]="assign"></nz-switch>
+</ng-template>
+
+<ng-template #buttons let-node>
+  <ng-container *acl="{resource:assignApi}">
+    <button *ngIf="!assign" [nzLoading]="loading[node.id]===true" [disabled]="loading[node.id]==='end'"
+            (click)="onAssign(node.data)" nzSize="small" nz-button
+            nzType="primary">{{(loading[node.id]==='end'?'common.actionComplete':'page.system.role.assignAuthority') |translate}}</button>
+  </ng-container>
+  <ng-container *acl="{resource:unAssignApi}">
+    <button *ngIf="assign" [nzLoading]="loading[node.id]===true" [disabled]="loading[node.id]==='end'"
+            (click)="onUnAssign(node.data)" nzSize="small" nz-button
+            nzType="primary">{{(loading[node.id]==='end'?'common.actionComplete':'page.system.role.unAssignAuthority')|translate}}</button>
+  </ng-container>
+</ng-template>
+
+<ngx-grid-table #grid
+                [rowButton]="{template:buttons}"
+                [topButton]="{center,left}"
+                [getData]="getData"
+                (gridReady)="onGridReady($event,jsonForm)"
+                [options]="gridOptions">
+</ngx-grid-table>

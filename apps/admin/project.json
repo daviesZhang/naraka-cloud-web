@@ -16,7 +16,7 @@
         "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "less",
         "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-        "styles": ["apps/admin/src/styles.less"],
+        "styles": ["apps/admin/src/theme.less","apps/admin/src/styles.scss"],
         "scripts": []
       },
       "configurations": {

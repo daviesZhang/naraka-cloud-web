@@ -1,0 +1,22 @@
+<div>
+
+
+  <naraka-cloud-web-json-form #jsonForm *ngIf="fields"
+                 [defaultModel]="data"
+                 [fields]="fields"
+                 layoutClass="create-modal"
+                 formLayout="horizontal"></naraka-cloud-web-json-form>
+
+  <span *ngIf="contentString">{{contentString}}</span>
+
+
+  <ng-container *ngIf="this.contentTemplate">
+    <ng-container *ngTemplateOutlet="contentTemplate; "
+    ></ng-container>
+  </ng-container>
+
+  <div *ngIf="showFooter" class="modal-footer">
+    <button (click)="cancel()"  nz-button type="button">{{"common.cancel"|translate}}</button>
+    <button (click)="submit()"  [nzLoading]="loading" nz-button nzType="primary" type="submit">{{"common.submit"|translate}}</button>
+  </div>
+</div>
