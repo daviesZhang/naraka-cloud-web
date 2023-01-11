@@ -1,0 +1,11 @@
+
+  <nz-tree-select
+    [ngStyle]="{width:(props['selectWidth']||100)+'px'}"
+    [nzExpandedKeys]="props['expandKeys']"
+    [nzNodes]="props['nodes']"
+    [nzShowSearch]="props['showSearch']"
+    [nzPlaceHolder]="props['placeholder']"
+    [formControl]="formControl"
+    [nzSize]="props['size']||'default'"
+    [formlyAttributes]="field"
+  ></nz-tree-select>

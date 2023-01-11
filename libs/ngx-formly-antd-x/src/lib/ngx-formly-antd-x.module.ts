@@ -4,6 +4,7 @@ import {FormlyInputModule} from "./formly-input/formly-input.module";
 import {FormlyLayoutSearchModule} from "./formly-layout-search/formly-layout-search.module";
 import {FormlySelectModule} from "./formly-select/formly-select.module";
 import {FormlyDateModule} from "./formly-date/formly-date.module";
+import {FormlyTreeSelectModule} from "./formly-tree-select/formly-tree-select.module";
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {FormlyDateModule} from "./formly-date/formly-date.module";
     FormlyWrapperFormFieldModule,
     FormlyLayoutSearchModule,
     FormlyInputModule,
+    FormlyTreeSelectModule,
     FormlySelectModule,FormlyDateModule
 
   ],

@@ -33,6 +33,9 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
   getEmailApi = "/system/user/email";
   putEmailApi = "/system/user/email";
 
+
+  tenementListApi = "/system/tenement/list";
+
   gridOptions!: GridOptions;
 
   override transform: ParamsTransform = {
@@ -315,6 +318,12 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
   }
 
   create() {
+    const serverSearch = (name: string) => this.http.post<Array<PageItem>>(this.tenementListApi,
+      {})
+      .pipe(map(items => {
+        return items;
+      }));
+
     const fields: FormlyFieldConfig[] = [{
       key: 'username',
       type: 'input',
@@ -391,6 +400,27 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
         expressions: {
           'templateOptions.label': this.translate.stream('page.system.user.email.label'),
           'templateOptions.placeholder': this.translate.stream('page.system.user.email.placeholder'),
+        }
+      },
+      {
+        key: 'tenement',
+        type: 'tree-select',
+        props: {
+          labelWidth: 80,
+          selectWidth: 250,
+          required: true,
+          showSearch: true,
+          serverSearch,
+
+        },
+        validation: {
+          messages: {
+            required: this.validationMessageService.requiredMessage
+          }
+        },
+        expressions: {
+          'props.label': this.translate.stream('page.system.user.tenement.label'),
+          'props.placeholder': this.translate.stream('page.system.user.tenement.placeholder'),
         }
       }]
     this.crud.createCommonModal(this.translate.instant('page.system.user.create'), fields, (data) =>

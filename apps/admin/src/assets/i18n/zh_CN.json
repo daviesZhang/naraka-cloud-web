@@ -104,6 +104,10 @@
         "type": {
           "label": "用户类型",
           "placeholder": "用户类型"
+        },
+        "tenement": {
+          "label": "所属公司",
+          "placeholder": "公司名称"
         }
       },
       "role": {
