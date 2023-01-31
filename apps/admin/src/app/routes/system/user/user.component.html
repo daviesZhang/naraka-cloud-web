@@ -1,5 +1,4 @@
 <naraka-cloud-web-json-form #jsonForm [fields]="searchFields" class="search-panel"></naraka-cloud-web-json-form>
-
 <ng-template #center>
   <button
     (click)="grid.refreshRowsData()"
@@ -43,14 +42,13 @@
      nzType="edit"
      nzTheme="outline"></i>
 </ng-template>
-
 <ng-template #actionTemplate let-node>
-
   <button nz-button (click)="assignRole(node.data)" nzSize="small">分配角色</button>
   <button nz-button (click)="restPwd(node.data)" nzSize="small">重置密码</button>
+  <button nz-button (click)="updateProfile(node.data)" nzSize="small">修改资料</button>
 </ng-template>
 <ng-template #left>
-  <button *acl="{resource:createUserApi}" (click)="create()"
+  <button *acl="{resource:userApi}" (click)="create()"
           nzSize="small"
           nz-button
           nzType="primary">{{'common.create' |translate}}</button>

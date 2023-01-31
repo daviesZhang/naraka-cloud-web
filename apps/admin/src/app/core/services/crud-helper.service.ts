@@ -6,7 +6,7 @@ import {filter, firstValueFrom, map, Observable, Subject, tap} from "rxjs";
 import {NzSafeAny} from "ng-zorro-antd/core/types";
 import {ModalOptions} from "ng-zorro-antd/modal/modal-types";
 import {TranslateService} from "@ngx-translate/core";
-import {FormlyValueChangeEvent} from "@ngx-formly/core/lib/models/fieldconfig";
+
 import {addMonths, endOfMonth, endOfToday, endOfWeek, startOfMonth, startOfToday, startOfWeek} from "date-fns";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class CrudHelperService {
    */
   queryDateRanges(getSelect?: () => Array<Date> | null) {
     const now = new Date();
-    let range = {
+    const range = {
       [this.translate.instant('common.today')]: [startOfToday(), endOfToday()],
       [this.translate.instant('common.week')]: [startOfWeek(now), endOfWeek(now)],
       [this.translate.instant('common.month')]: [startOfMonth(now), endOfMonth(now)],
@@ -58,10 +58,10 @@ export class CrudHelperService {
    * @param request 请求方法
    * @param data 默认数据
    */
-  createCommonModal(title: string,
+  createCommonModal<T,V>(title: string,
                     content: FormlyFieldConfig[] | string | TemplateRef<NzSafeAny>,
-                    request: (data: any) => Observable<any>,
-                    data?: any): Observable<any> {
+                    request: (data: V) => Observable<any>,
+                    defaultData?: V): Observable<T> {
 
     return this.modal.create({
       nzTitle: title,
@@ -69,7 +69,7 @@ export class CrudHelperService {
       nzComponentParams: {
         content,
         request,
-        data
+        data:defaultData
       },
       nzFooter: null,
     }).afterClose.asObservable();

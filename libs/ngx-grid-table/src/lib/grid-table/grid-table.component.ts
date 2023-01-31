@@ -22,16 +22,16 @@ import {NgxGridTableTranslateService} from "../ngx-grid-table-translate.service"
 import {
   ColDef,
   ColumnApi,
-  Constants,
+
   ExcelCell,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
-  GridReadyEvent,
+  GridReadyEvent, IRowNode,
   IServerSideGetRowsParams,
   RowNode
-} from 'ag-grid-community';
-import 'ag-grid-enterprise';
+} from "ag-grid-community";
+
 import {TemplateRendererComponent} from '../template-renderer/template-renderer.component';
 import {
 
@@ -66,7 +66,7 @@ export class GridTableComponent implements OnInit {
    * 是否为树数据
    * @private
    */
-  private treeData: boolean = false;
+  private treeData = false;
 
   //allModules = AllModules;
 
@@ -210,10 +210,10 @@ export class GridTableComponent implements OnInit {
   };
 
 
-  currentPage: number = 1;
+  currentPage = 1;
 
 
-  currentPageSize: number = 100;
+  currentPageSize = 100;
 
   total = 0;
 
@@ -227,7 +227,7 @@ export class GridTableComponent implements OnInit {
   progressStatus: NzProgressStatusType = 'normal';
 
 
-  selectedNodes: RowNode[] = [];
+  selectedNodes: IRowNode[] = [];
 
   dataLoading = false;
 
@@ -317,7 +317,7 @@ export class GridTableComponent implements OnInit {
         this.options.columnDefs = [cell].concat(this.options.columnDefs || []);
 
       } else {
-        this.options.columnDefs!.push(cell);
+        this.options.columnDefs?.push(cell);
       }
     }
 
@@ -530,7 +530,7 @@ export class GridTableComponent implements OnInit {
   refreshRowsData(queryParams = {}): Observable<Page<any> | null> {
     this.api.clearRangeSelection();
     this.api.deselectAll();
-    if (this.gridOptions.rowModelType === Constants.ROW_MODEL_TYPE_SERVER_SIDE) {
+    if (this.gridOptions.rowModelType ==='serverSide') {
       return this.serverSideData(queryParams);
     } else {
       return this.serverClientData(queryParams);
@@ -675,7 +675,7 @@ export class GridTableComponent implements OnInit {
    * @param node 手动传入行
    * @param rangeSelect 当手动传入行为空,自动获取已选择的时是否包含未勾选但区域选中的行
    */
-  deleteBatch(node: RowNode[] | null = null): Observable<RowNode[] | false> {
+  deleteBatch(node: IRowNode[] | null = null): Observable<RowNode[] | false> {
     if (!node) {
       node = this.api.getSelectedNodes();
     }
@@ -689,7 +689,7 @@ export class GridTableComponent implements OnInit {
     this.initProgress();
     let cancel = false;
     let isStart = false;
-    let deleteSuccess: Array<RowNode> = [];
+    let deleteSuccess: Array<IRowNode> = [];
     return this.modal.confirm({
       nzContent: this.deleteContent,
       nzWrapClassName: 'grid-batch-delete',
@@ -718,8 +718,8 @@ export class GridTableComponent implements OnInit {
          * 已成功删除的行
          */
         deleteSuccess = [];
-        const deleteArray = node!.map(item => {
-          return this.deleteFunc!(item).pipe(tap(next => deleteSuccess.push(item)),
+        const deleteArray = (node||[]).map(item => {
+          return this.deleteFunc?.(item).pipe(tap(next => deleteSuccess.push(item)),
             switchMap(result => {
               if (cancel) {
                 return throwError(new Error('is cancel'));

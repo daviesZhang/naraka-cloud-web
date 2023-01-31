@@ -54,12 +54,12 @@
       },
       "tenement": {
         "name": {
-          "label": "组织名称",
-          "placeholder": "组织名称"
+          "label": "公司名称",
+          "placeholder": "公司名称"
         },
         "code": {
-          "label": "唯一标识",
-          "placeholder": "唯一标识"
+          "label": "公司Code",
+          "placeholder": "公司Code"
         },
         "desc": {
           "label": "描述",
@@ -69,7 +69,7 @@
       "user": {
         "assign": "分配角色",
         "create": "创建新用户",
-        "status": {
+        "userStatus": {
           "label": "用户状态",
           "placeholder": "用户状态"
         },
@@ -104,11 +104,8 @@
         "type": {
           "label": "用户类型",
           "placeholder": "用户类型"
-        },
-        "tenement": {
-          "label": "所属公司",
-          "placeholder": "公司名称"
         }
+
       },
       "role": {
         "showAuthority": "权限列表",

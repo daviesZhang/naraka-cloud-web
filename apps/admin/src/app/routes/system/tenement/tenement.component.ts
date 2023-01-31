@@ -12,13 +12,8 @@ import {changeDataToGridTree} from "../../../shared/utils/tools";
 import {FormlyFieldConfig} from "@ngx-formly/core";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {TemplateRendererComponent} from "ngx-grid-table";
+import {Tenement, TenementService} from "@core/services/tenement.service";
 
-
-interface Tenement {
-  code: string;
-  name: string;
-  parentCode: string;
-}
 
 @Component({
   selector: 'naraka-cloud-web-tenement',
@@ -64,9 +59,9 @@ export class TenementComponent extends AbstractGridTablePage implements OnInit {
   gridOptions!: GridOptions;
 
 
-  @ViewChild("cellButton",{static: true})
+  @ViewChild("cellButton", {static: true})
   cellButton!: TemplateRef<any>;
-  request = (params: QueryPage) => this.httpClient.post<Array<Tenement>>(this.queryListApi, params)
+  request = (params: QueryPage) => this.tenementService.getList(params)
     .pipe(map(items => {
       return {
         items: changeDataToGridTree(items, {parent: item => item.parentCode, id: item => item.code}),
@@ -78,6 +73,7 @@ export class TenementComponent extends AbstractGridTablePage implements OnInit {
               private validationMessageService: ValidationService,
               private crud: CrudHelperService,
               private modal: NzModalService,
+              private tenementService: TenementService,
               private translate: TranslateService) {
     super();
   }
@@ -140,17 +136,17 @@ export class TenementComponent extends AbstractGridTablePage implements OnInit {
   ngOnInit(): void {
     this.gridOptions = {
       treeData: true,
-      getRowId:data=>data.data.code,
+      getRowId: data => data.data.code,
       getDataPath: data => data.path,
       groupDisplayType: 'custom',
       columnDefs: [
         {
-          headerName:'',
+          headerName: '',
           field: '_action',
           cellRenderer: TemplateRendererComponent,
-          suppressMenu:true,
-          cellRendererParams:{
-            ngTemplate:this.cellButton
+          suppressMenu: true,
+          cellRendererParams: {
+            ngTemplate: this.cellButton
           },
           pinned: 'left'
         },
@@ -175,32 +171,32 @@ export class TenementComponent extends AbstractGridTablePage implements OnInit {
       this.gridTable.searchRowsData(this.searchForm?.value);
     }
   }
+
   refresh() {
     if (this.gridTable) {
       this.gridTable.refreshRowsData(this.searchForm?.value);
     }
   }
 
-  create(parentCode =null) {
-    this.crud.createCommonModal(this.translate.instant('common.create'),
+  create(parentCode = null) {
+    this.crud.createCommonModal<any,Partial<Tenement>>(this.translate.instant('common.create'),
       this.createFields(),
-      data => this.httpClient.post(this.api,
-        Object.assign(data, {parentCode})).pipe(map(() => true)))
+      data => this.tenementService.create(Object.assign({},data, {parentCode})))
       .subscribe(next => next && this.search())
   }
 
-  update(value: { [key: string]: any }) {
+  update(value: Tenement) {
+    const {code} = value;
     this.crud.createCommonModal(this.translate.instant('common.update'),
       this.createFields(),
-      data => this.httpClient.put(this.api,
-        Object.assign({id: value['id']}, data)).pipe(map(() => true)), value)
+      data => this.tenementService.update(Object.assign({code}, data)))
       .subscribe(next => next && this.refresh());
   }
 
 
-  delete(parent: string) {
+  delete(code: string) {
     this.crud.simpleDeleteConfirmModal(
-      () => this.httpClient.post(`${this.deleteApi}?code=${parent}`,{}).pipe(map(() => true)))
+      () => this.tenementService.deleteByCode(code))
       .subscribe(() => this.search());
   }
 }

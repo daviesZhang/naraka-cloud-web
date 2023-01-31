@@ -128,7 +128,7 @@ export function getTreeData<T extends { [key: string]: any }>(data: Array<T>,
   function childrenList(data: Array<T>, level: number, parentId?: string | number): { result: Array<T>, other: Array<T> } {
     const childrenList: Array<T> = [];
     const otherList: Array<T> = [];
-    for (let item of data) {
+    for (const item of data) {
       const isChildren = parentId === undefined ? isRoot(item) : parent((item)) === parentId;
       if (isChildren) {
         childrenList.push(Object.assign({level: level}, item));
@@ -148,13 +148,14 @@ export function getTreeData<T extends { [key: string]: any }>(data: Array<T>,
   const isRoot = params.isRoot || (item => !parent(item));
   const sort = params.sort;
   let level = 1;
+
   let {result, other} = childrenList(data, level);
   let hasNext = true;
   let nextData: Array<T> = result;
   while (hasNext) {
     level = level + 1;
     let next: Array<T> = [];
-    for (let item of nextData) {
+    for (const item of nextData) {
       const childrenData = childrenList(other, level, id(item));
       other = childrenData.other;
       if (childrenData.result.length) {

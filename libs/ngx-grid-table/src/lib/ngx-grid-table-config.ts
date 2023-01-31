@@ -1,7 +1,7 @@
 import {InjectionToken, TemplateRef} from "@angular/core";
 import {RequestDataParams} from "./api";
-import {SideBarDef} from "ag-grid-community/dist/lib/entities/sideBar";
-import {ColDef} from "ag-grid-community/dist/lib/entities/colDef";
+import {SideBarDef,ColDef} from "ag-grid-community";
+
 
 export interface GridTablePagination {
   size: 'small' | 'default',

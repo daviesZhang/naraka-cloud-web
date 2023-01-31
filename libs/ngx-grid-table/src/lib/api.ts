@@ -1,5 +1,5 @@
 import {TemplateRef} from '@angular/core';
-import {RowNode} from 'ag-grid-community';
+import {IRowNode, RowNode} from 'ag-grid-community';
 import {Observable} from "rxjs";
 
 export interface Page<T>{
@@ -19,7 +19,7 @@ export interface RequestDataParams {
 }
 
 
-export type RequestDelete= (node: RowNode) => Observable<void>
+export type RequestDelete= (node: IRowNode) => Observable<void>
 
 
 

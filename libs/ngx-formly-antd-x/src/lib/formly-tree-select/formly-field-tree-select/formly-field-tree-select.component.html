@@ -1,6 +1,20 @@
 
-  <nz-tree-select
-    [ngStyle]="{width:(props['selectWidth']||100)+'px'}"
+  <nz-tree-select *ngIf="!isSync"
+    [ngStyle]="{width:props['selectWidth']}"
+    [nzExpandedKeys]="props['expandKeys']"
+    [nzNodes]="props['nodes']| async"
+    [nzShowSearch]="props['showSearch']"
+    [nzPlaceHolder]="props['placeholder']"
+    [formControl]="formControl"
+    [nzSize]="props['size']||'default'"
+    [formlyAttributes]="field"
+                  [nzAllowClear]="props['nzAllowClear']"
+  ></nz-tree-select>
+
+
+
+  <nz-tree-select *ngIf="isSync"
+    [ngStyle]="{width:props['selectWidth']}"
     [nzExpandedKeys]="props['expandKeys']"
     [nzNodes]="props['nodes']"
     [nzShowSearch]="props['showSearch']"
@@ -8,4 +22,6 @@
     [formControl]="formControl"
     [nzSize]="props['size']||'default'"
     [formlyAttributes]="field"
+                  [nzAllowClear]="props['nzAllowClear']"
+
   ></nz-tree-select>

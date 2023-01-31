@@ -167,7 +167,7 @@ export class MenuComponent extends AbstractGridTablePage implements OnInit {
     this.crud.createCommonModal(this.translate.instant('common.create'),
       this.createFields(),
       data => this.http.post('/admin/system/menu',
-        Object.assign(data, {parent})).pipe(map(() => true)))
+        Object.assign({},data, {parent})).pipe(map(() => true)))
       .subscribe(next => next && this.search())
   }
 

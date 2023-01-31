@@ -1,26 +1,23 @@
- .grid-table.grid {
+.grid-table.grid {
   .ag-status-bar {
     border-bottom: 0;
     box-shadow: inset 0 -1px 0 0 #BDC3C7;
   }
-  .cell-text-right{
+
+  .cell-text-right {
     display: flex;
     justify-content: flex-end;
   }
-
-
-
-
 }
 
- .grid-table.grid:not(.has-status-bar) {
+.grid-table.grid:not(.has-status-bar) {
   .ag-status-bar {
     border-top: none;
   }
 }
 
 
- .grid-table.grid-footer {
+.grid-table.grid-footer {
   .ag-status-bar {
     display: none;
   }
@@ -47,7 +44,6 @@
   }
 }
 
-
- .grid-batch-delete .batch-delete-text {
+.grid-batch-delete .batch-delete-text {
   margin-top: -8px;
 }
