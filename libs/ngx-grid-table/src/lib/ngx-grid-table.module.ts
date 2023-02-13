@@ -16,14 +16,14 @@ import {CommonModule} from "@angular/common";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {GridTableI18nPipe} from "./GridTableI18nPipe";
-import {LicenseManager} from 'ag-grid-enterprise';
+
 import {AgGridModule} from 'ag-grid-angular';
 import {GRID_TABLE_CONFIG, GridTableConfig} from "./ngx-grid-table-config";
+import { LicenseManager } from 'ag-grid-enterprise';
+import { LICENSE } from "./grid-license";
 
 
-// @ts-ignore
-LicenseManager.extractExpiry = () => new Date(7287897600000);
-LicenseManager.setLicenseKey('Evaluation_License_Not_For_Production_Valid_Until1_March_2019__MTU1MTM5ODQwMDAwMA==571888b3c7cbc45a13d91e9c2e885c44');
+LicenseManager.setLicenseKey(LICENSE);
 
 
 

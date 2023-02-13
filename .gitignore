@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 .angular
+/libs/ngx-grid-table/src/lib/grid-license.ts
