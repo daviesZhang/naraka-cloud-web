@@ -56,6 +56,7 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
   assignRoleApi = "/system/user/role";
   getPhoneApi = "/system/user/phone";
   putPhoneApi = "/system/user/phone";
+  restPasswordApi = "/system/user/password";
   getEmailApi = "/system/user/email";
   putEmailApi = "/system/user/email";
 
@@ -484,7 +485,7 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
 
 
   updateProfile(node: User) {
-    console.log(node);
+
     const fields: FormlyFieldConfig[] = [
       {
         key: 'username',
@@ -552,6 +553,72 @@ export class UserComponent extends AbstractGridTablePage implements OnInit {
     ]
     this.crud.createCommonModal<User,User>(this.translate.instant('page.system.user.update'), fields, (data) =>
       this.http.put<Page<User>>(this.userApi, data).pipe(map(() => true)), node)
+      .subscribe((next) => {
+        next && this.gridTable?.searchRowsData();
+      });
+  }
+
+  restPassword(node:User){
+    const fields: FormlyFieldConfig[] = [
+      {
+        key: 'username',
+        type: 'input',
+        props: {
+          disabled:true,
+          required: true,
+          labelWidth: 80,
+        },
+        validation: {
+          messages: {
+            required: this.validationMessageService.requiredMessage
+          }
+        },
+        validators: {
+          username: this.validationMessageService.username()
+        },
+        expressions: {
+          'templateOptions.label': this.translate.stream('page.system.user.username.label'),
+          'templateOptions.placeholder': this.translate.stream('page.system.user.username.placeholder'),
+        },
+      },
+      {
+        key: 'id',
+        type: 'input',
+        hide:true,
+        props: {
+
+          labelWidth: 80,
+        },
+        expressions: {
+          'templateOptions.label': this.translate.stream('page.system.user.username.label'),
+          'templateOptions.placeholder': this.translate.stream('page.system.user.username.placeholder'),
+        },
+      },
+      {
+        key: 'newPassword',
+        type: 'input',
+        props: {
+          required: true,
+          labelWidth: 80,
+
+        },
+        expressions: {
+          'templateOptions.label': this.translate.stream('page.system.user.password.label'),
+          'templateOptions.placeholder': this.translate.stream('page.system.user.password.placeholder'),
+        },
+        validation: {
+          messages: {
+            required: this.validationMessageService.requiredMessage
+          }
+        },
+        validators: {
+          newPassword: this.validationMessageService.password()
+        }
+      },
+
+    ]
+    this.crud.createCommonModal<User,User>(this.translate.instant('page.system.user.update'), fields, (data) =>
+      this.http.put<Page<User>>(this.restPasswordApi, {...data,id:node.id}).pipe(map(() => true)), node)
       .subscribe((next) => {
         next && this.gridTable?.searchRowsData();
       });

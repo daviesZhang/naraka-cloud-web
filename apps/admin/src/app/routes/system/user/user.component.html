@@ -44,7 +44,7 @@
 </ng-template>
 <ng-template #actionTemplate let-node>
   <button nz-button (click)="assignRole(node.data)" nzSize="small">分配角色</button>
-  <button nz-button (click)="restPwd(node.data)" nzSize="small">重置密码</button>
+  <button nz-button (click)="restPassword(node.data)" nzSize="small">重置密码</button>
   <button nz-button (click)="updateProfile(node.data)" nzSize="small">修改资料</button>
 </ng-template>
 <ng-template #left>
@@ -60,3 +60,5 @@
                 (gridReady)="onGridReady($event,jsonForm)"
                 [options]="gridOptions">
 </ngx-grid-table>
+
+
